@@ -1,17 +1,17 @@
-/*ProductList.css*/
+/*sectionList.css*/
 
-.product-list {
+.section-list {
   margin-top: 20px;
 }
 
-.product-list h2 {
+.section-list h2 {
   font-size: 20px;
   color: #212529;
   border-bottom: 2px solid #007bff;
   padding-bottom: 4px;
 }
 
-.product-list .product-items {
+.section-list .section-items {
   margin-top: 12px;
   display: flex;
   flex-direction: column;

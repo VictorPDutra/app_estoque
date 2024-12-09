@@ -1,7 +1,7 @@
 //App.jsx
 
 import { Routes, Route } from "react-router-dom";
-import StockManagement from "./components/StockManagement";
+import StockManagement from "./pages/StockManagement";
 import StockPage from "./pages/StockPage";
 
 const App = () => {
