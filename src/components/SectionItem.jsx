@@ -39,7 +39,7 @@ const SectionItem = ({ section, stockId, setSections }) => {
         <div className="actions">
           <button onClick={() => setEditing(!editing)}>Editar</button>
           <button className="delete-button" onClick={removeSection}>
-            Remover
+            Excluir
           </button>
         </div>
       </div>

@@ -24,16 +24,19 @@ const AddSectionForm = ({ stockId, onSectionAdded }) => {
   };
 
   return (
-    <div className="add-sections">
+    <form className="add-sections" onSubmit={addSection}>
+      <label htmlFor="section-name">
+        <span>Nome da seção:</span>
+      </label>
       <input
         className="name-input"
         type="text"
-        placeholder="Nome da seção"
+        placeholder="Digite o nome"
         value={sectionName}
         onChange={(e) => setSectionName(e.target.value)}
       />
-      <button onClick={addSection}>Adicionar Produto</button>
-    </div>
+      <button type="submit">Criar seção</button>
+    </form>
   );
 };
 

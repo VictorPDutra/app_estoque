@@ -17,9 +17,7 @@ const StockManagement = () => {
 
   const addStock = () => {
     if (!newStockName.trim()) return;
-
     const newStock = { id: Date.now(), name: newStockName.trim() };
-
     const updatedStocks = [...stocks, newStock];
     setStocks(updatedStocks);
     saveToLocalStorage("stocks", updatedStocks);
@@ -35,21 +33,29 @@ const StockManagement = () => {
   return (
     <div className="stock-management">
       <h1>Gerenciamento de Estoques</h1>
-      <div className="add-estoque-form">
+      <form className="add-estoque-form" onSubmit={addStock}>
+        <label htmlFor="stock-name">Nome do estoque:</label>
         <input
           type="text"
           value={newStockName}
           onChange={(e) => setNewStockName(e.target.value)}
-          placeholder="Nome do Estoque"
+          placeholder="Digite o nome"
         />
-        <button onClick={addStock}>Criar Estoque</button>
-      </div>
+        <button type="submit">Criar estoque</button>
+      </form>
       <ul>
         {stocks.map((stock) => (
-          <li key={stock.id}>
-            <Link to={`/stock/${stock.id}`}>{stock.name}</Link>
-            <button onClick={() => deleteStock(stock.id)}>Excluir</button>
-          </li>
+          <Link className="stock-link" key={stock.id} to={`/stock/${stock.id}`}>
+            <li className="stock-item">
+              {stock.name}
+              <button
+                className="removing"
+                onClick={() => deleteStock(stock.id)}
+              >
+                Excluir
+              </button>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>

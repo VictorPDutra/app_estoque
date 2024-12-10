@@ -1,5 +1,7 @@
 //SectionPage.jsx
 
+//import "./SectionPage.css";
+
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import AddProductForm from "../components/AddProductForm";

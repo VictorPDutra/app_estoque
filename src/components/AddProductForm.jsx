@@ -42,7 +42,7 @@ const AddProductForm = ({ sectionId, onProductAdded }) => {
         value={productQuantity}
         onChange={(e) => setProductQuantity(e.target.value)}
       />
-      <button onClick={addProduct}>Adicionar Produto</button>
+      <button onClick={addProduct}>Criar Produto</button>
     </div>
   );
 };

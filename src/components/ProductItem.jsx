@@ -68,11 +68,11 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
           <span className="quantity-span">{product.quantity}</span>
         </h4>
         <div className="actions">
-          <button onClick={() => setAdding(!adding)}>Acrescentar</button>
-          <button onClick={() => setRemoving(!removing)}>Retirar</button>
+          <button onClick={() => setAdding(!adding)}>Entrada</button>
+          <button onClick={() => setRemoving(!removing)}>Saída</button>
           <button onClick={() => setEditing(!editing)}>Editar</button>
           <button className="delete-button" onClick={removeProduct}>
-            Remover
+            Excluir
           </button>
         </div>
       </div>
@@ -97,7 +97,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
             value={addAmount}
             onChange={(e) => setAddAmount(parseInt(e.target.value, 10))}
           />
-          <button onClick={addQuantity}>Salvar</button>
+          <button onClick={addQuantity}>Adicionar</button>
         </div>
       )}
 
@@ -109,7 +109,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
             value={removeAmount}
             onChange={(e) => setRemoveAmount(parseInt(e.target.value, 10))}
           />
-          <button onClick={subtractQuantity}>Salvar</button>
+          <button onClick={subtractQuantity}>Retirar</button>
         </div>
       )}
     </div>

@@ -14,6 +14,11 @@
   margin-bottom: 16px;
 }
 
+.stock-management label {
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .stock-management .add-estoque-form {
   display: flex;
   flex-direction: column;
@@ -23,6 +28,7 @@
 
 .stock-management input {
   width: 100%;
+  margin: 8px 0 18px 0;
   padding: 10px;
   border: 1px solid #dee2e6;
   border-radius: 4px;
@@ -54,14 +60,14 @@
 .stock-management ul {
   list-style: none;
   padding: 0;
-  margin-top: 16px;
+  margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
 }
 
-.stock-management li {
+.stock-item {
   background-color: #ffffff;
   border: 1px solid #dee2e6;
   border-radius: 8px;
@@ -75,25 +81,17 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.stock-management li:hover {
+.stock-item:hover {
   transform: translateY(-5px);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.stock-management li a {
-  font-size: 18px;
-  font-weight: bold;
-  color: #007bff;
+.stock-management .stock-link {
   text-decoration: none;
-  margin-bottom: 12px;
 }
 
-.stock-management li a:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
-.stock-management li button {
+.stock-item button {
+  margin-top: 16px;
   background-color: #dc3545;
   color: white;
   border: none;
@@ -103,6 +101,6 @@
   cursor: pointer;
 }
 
-.stock-management li button:hover {
+.stock-item button:hover {
   background-color: #c82333;
 }
