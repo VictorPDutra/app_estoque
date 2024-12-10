@@ -17,7 +17,9 @@ const StockManagement = () => {
 
   const addStock = () => {
     if (!newStockName.trim()) return;
+
     const newStock = { id: Date.now(), name: newStockName.trim() };
+
     const updatedStocks = [...stocks, newStock];
     setStocks(updatedStocks);
     saveToLocalStorage("stocks", updatedStocks);

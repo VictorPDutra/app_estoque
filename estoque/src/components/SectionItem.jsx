@@ -3,6 +3,7 @@
 import "./SectionItem.css";
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { saveToLocalStorage, getFromLocalStorage } from "../utils/storage";
 
 const SectionItem = ({ section, stockId, setSections }) => {
@@ -32,7 +33,9 @@ const SectionItem = ({ section, stockId, setSections }) => {
     <div className="section-item">
       {/* Cabeçalho com título e ações na mesma linha */}
       <div className="header">
-        <h4>{section.name}</h4>
+        <Link to={`/stock/${stockId}/sections/${section.id}`}>
+          <h4>{section.name}</h4>
+        </Link>
         <div className="actions">
           <button onClick={() => setEditing(!editing)}>Editar</button>
           <button className="delete-button" onClick={removeSection}>

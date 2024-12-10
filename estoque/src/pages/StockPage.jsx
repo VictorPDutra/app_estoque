@@ -12,7 +12,7 @@ const StockPage = () => {
   const { id } = useParams(); // Permite acessar os dados do "id" que vem através da rota "/stocks:id" - Com isso podemos carregar o componente "StockPage" com os dados do "id"
   const navigate = useNavigate(); // Permite programar ações de navegação dentro do componente
   const [stockName, setStockName] = useState("");
-  const [sectionUpdateTrigger, setSectionUpdateTrigger] = useState(false); // Estado usado para criar gatilho de atualiuzação automática da SectionList
+  const [sectionUpdateTrigger, setSectionUpdateTrigger] = useState(0); // Estado usado para criar gatilho de atualiuzação automática da SectionList
 
   useEffect(() => {
     // Função que busca o estoque correspondente ao do "id" passado na rota. Usado para buscar o nome do estoque para imprimir na tela
@@ -27,7 +27,7 @@ const StockPage = () => {
 
   // Função para criar gatilho de atualização automática da SectionList
   const handleSectionAdded = () => {
-    setSectionUpdateTrigger(true); // Altera o estado para forçar a re-renderização
+    setSectionUpdateTrigger((prev) => prev + 1); // Altera o estado para forçar a re-renderização
   };
 
   return (

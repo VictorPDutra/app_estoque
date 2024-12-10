@@ -1,0 +1,104 @@
+/*ProductItem.css*/
+
+.product-item {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Alinhamento horizontal entre o título e os botões */
+.product-item .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-item h4 {
+  min-width: 150px;
+  font-size: 18px;
+  color: #007bff;
+  margin: 0; /* Remove espaçamento extra */
+}
+
+.quantity-span {
+  color: #dc3545;
+  font-size: 22px;
+}
+
+/* Botões da barra de ações */
+.product-item .actions {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os botões quebrem linha */
+  gap: 8px;
+  align-items: center; /* Alinha verticalmente os itens no centro */
+  margin-left: auto; /* Empurra os botões para a direita */
+}
+
+.product-item .actions button {
+  background-color: #e7e7e7;
+  color: rgb(77, 77, 77);
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.product-item .actions button:hover {
+  background-color: #a3a3a3;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.product-item .actions button:active {
+  transform: translateY(0);
+}
+
+.product-item .actions .delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.product-item .actions .delete-button:hover {
+  background-color: #b32e3b;
+  color: white;
+}
+
+/* Estilo para os formulários */
+.product-item .form {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.product-item .form input {
+  padding: 8px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 14px;
+  flex-grow: 1;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.product-item .form input:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 4px rgba(0, 123, 255, 0.5);
+}
+
+.product-item .form button {
+  background-color: #28a745;
+  color: white;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.product-item .form button:hover {
+  background-color: #218838;
+}

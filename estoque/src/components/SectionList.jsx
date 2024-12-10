@@ -12,7 +12,7 @@ const SectionList = ({ stockId, updateTrigger }) => {
   useEffect(() => {
     const storedSections = getFromLocalStorage(stockId) || [];
     setSections(storedSections);
-    updateTrigger = false; // Retornamos updateTrigger para seu estado inicial
+    updateTrigger = 0; // Retornamos updateTrigger para seu estado inicial
   }, [stockId, updateTrigger]);
 
   return (
