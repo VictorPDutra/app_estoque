@@ -8,7 +8,7 @@ import SectionPage from "./pages/SectionPage";
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<StockManagement />} />
+      <Route path="/app_estoque_2.0/" element={<StockManagement />} />
       <Route path="/stock/:id" element={<StockPage />} />
       <Route
         path="/stock/:stockId/sections/:sectionId"
