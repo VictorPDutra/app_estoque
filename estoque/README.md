@@ -1,8 +1,18 @@
-# React + Vite
+Gerenciador de estoques
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto tem como objetivo suprir a necesssidade de um bom gerenciador de estoque de uma empresa de esquadrias de alumínio.
 
-Currently, two official plugins are available:
+Objetivos do projeto:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Design limpo, prático e personalizado para a empresa;
+
+- Sistema otimizado para uso em máquinas mais simples e dispositivos mobile;
+
+- Base de dados em nuvem, acessível de vários dispositivos e a qualquer momento.
+
+- Sistema com quatro camadas principais:
+  
+  - Estoques: Nesta página o usuário pode criar estoques diferentes para cada empresa a qual presta serviço;
+  - Seções: Já dentro da página do "Estoque", ele pode criar seções para organizar melhor seus produtos;
+  - Produtos: Agora dentro de uma "Seção", ele poderá criar seus produtos;
+  - Produto: Em cada produto criado, o usuário vizualizará "nome", "código" e quantidade de cada produto. Também poderá dar          "entrada", "saída", "editar" e "excluir" cada produto.
