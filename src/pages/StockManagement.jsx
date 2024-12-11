@@ -45,7 +45,11 @@ const StockManagement = () => {
       </form>
       <ul>
         {stocks.map((stock) => (
-          <Link className="stock-link" key={stock.id} to={`/stock/${stock.id}`}>
+          <Link
+            className="stock-link"
+            key={stock.id}
+            to={`/app_estoque/stock/${stock.id}`}
+          >
             <li className="stock-item">
               {stock.name}
               <button

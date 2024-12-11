@@ -21,7 +21,7 @@ const StockPage = () => {
     if (currentStock) {
       setStockName(currentStock.name); // Se o stock foi encontrado, adiciona "name" ao state "stockName" - usado para adicionar como título da página
     } else {
-      navigate("/"); // Redireciona se o estoque não for encontrado
+      navigate("/app_estoque/"); // Redireciona se o estoque não for encontrado
     }
   }, [id, navigate]);
 
