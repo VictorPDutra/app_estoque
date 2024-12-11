@@ -27,14 +27,20 @@ const AddProductForm = ({ sectionId, onProductAdded }) => {
   };
 
   return (
-    <div className="add-products">
+    <form className="add-products" onSubmit={addProduct}>
+      <label>
+        <span>Nome do produto:</span>
+      </label>
       <input
         className="name-input"
         type="text"
-        placeholder="Nome do Produto"
+        placeholder="Digite o nome"
         value={productName}
         onChange={(e) => setProductName(e.target.value)}
       />
+      <label>
+        <span>Quantidade:</span>
+      </label>
       <input
         className="quantity-input"
         type="number"
@@ -42,8 +48,8 @@ const AddProductForm = ({ sectionId, onProductAdded }) => {
         value={productQuantity}
         onChange={(e) => setProductQuantity(e.target.value)}
       />
-      <button onClick={addProduct}>Criar Produto</button>
-    </div>
+      <button type="submit">Criar Produto</button>
+    </form>
   );
 };
 

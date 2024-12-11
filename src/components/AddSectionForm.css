@@ -8,17 +8,14 @@
 
 .add-sections input {
   width: calc(100% - 100px);
-  margin: 8px 12px 0 0;
+  max-width: 300px;
+  margin: 8px 12px 12px 0;
   padding: 10px;
   border: 1px solid #dee2e6;
   border-radius: 4px;
   font-size: 14px;
   outline: none;
   transition: border-color 0.3s ease;
-}
-
-.add-sections .name-input {
-  max-width: 300px;
 }
 
 .add-sections input:focus {

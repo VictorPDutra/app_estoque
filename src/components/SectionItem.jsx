@@ -33,7 +33,10 @@ const SectionItem = ({ section, stockId, setSections }) => {
     <div className="section-item">
       {/* Cabeçalho com título e ações na mesma linha */}
       <div className="header">
-        <Link to={`/app_estoque/stock/${stockId}/sections/${section.id}`}>
+        <Link
+          className="item-link"
+          to={`/app_estoque/stock/${stockId}/sections/${section.id}`}
+        >
           <h4>{section.name}</h4>
         </Link>
         <div className="actions">

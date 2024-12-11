@@ -70,7 +70,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
         <div className="actions">
           <button onClick={() => setAdding(!adding)}>Entrada</button>
           <button onClick={() => setRemoving(!removing)}>Saída</button>
-          <button onClick={() => setEditing(!editing)}>Editar</button>
+          {/* <button onClick={() => setEditing(!editing)}>Editar</button> */}
           <button className="delete-button" onClick={removeProduct}>
             Excluir
           </button>

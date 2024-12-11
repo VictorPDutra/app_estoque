@@ -34,7 +34,7 @@ const StockManagement = () => {
     <div className="stock-management">
       <h1>Gerenciamento de Estoques</h1>
       <form className="add-estoque-form" onSubmit={addStock}>
-        <label htmlFor="stock-name">Nome do estoque:</label>
+        <label>Nome do estoque:</label>
         <input
           type="text"
           value={newStockName}

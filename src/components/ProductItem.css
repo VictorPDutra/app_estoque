@@ -102,3 +102,13 @@
 .product-item .form button:hover {
   background-color: #218838;
 }
+
+@media (max-width: 620px) {
+  .product-item .header {
+    display: block;
+  }
+
+  .product-item .actions {
+    margin-top: 18px;
+  }
+}

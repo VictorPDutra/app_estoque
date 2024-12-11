@@ -1,8 +1,16 @@
 /*AddProductForm.css*/
 
+.add-products span {
+  display: block;
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .add-products input {
   width: calc(100% - 100px);
   padding: 10px;
+  margin: 8px 12px 20px 0;
+
   border: 1px solid #dee2e6;
   border-radius: 4px;
   font-size: 14px;

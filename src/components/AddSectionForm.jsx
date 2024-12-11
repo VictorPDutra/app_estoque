@@ -25,7 +25,7 @@ const AddSectionForm = ({ stockId, onSectionAdded }) => {
 
   return (
     <form className="add-sections" onSubmit={addSection}>
-      <label htmlFor="section-name">
+      <label>
         <span>Nome da seção:</span>
       </label>
       <input
