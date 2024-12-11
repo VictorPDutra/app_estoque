@@ -9,7 +9,9 @@ const AddProductForm = ({ sectionId, onProductAdded }) => {
   const [productName, setProductName] = useState("");
   const [productQuantity, setProductQuantity] = useState(0);
 
-  const addProduct = () => {
+  const addProduct = (e) => {
+    e.preventDefault();
+
     if (!productName.trim() || productQuantity <= 0) return;
 
     const products = getFromLocalStorage(sectionId) || [];

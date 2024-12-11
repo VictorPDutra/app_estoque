@@ -15,7 +15,9 @@ const StockManagement = () => {
     setStocks(storedStocks);
   }, []);
 
-  const addStock = () => {
+  const addStock = (e) => {
+    e.preventDefault();
+
     if (!newStockName.trim()) return;
     const newStock = { id: Date.now(), name: newStockName.trim() };
     const updatedStocks = [...stocks, newStock];

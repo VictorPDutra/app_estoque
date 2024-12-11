@@ -8,7 +8,9 @@ import { getFromLocalStorage, saveToLocalStorage } from "../utils/storage";
 const AddSectionForm = ({ stockId, onSectionAdded }) => {
   const [sectionName, setSectionName] = useState("");
 
-  const addSection = () => {
+  const addSection = (e) => {
+    e.preventDefault();
+
     if (!sectionName.trim()) return;
 
     const sections = getFromLocalStorage(stockId) || [];

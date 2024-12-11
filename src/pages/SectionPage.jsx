@@ -23,7 +23,7 @@ const SectionPage = () => {
     if (currentSection) {
       setSectionName(currentSection.name); // Se a section foi encontrada, adiciona "name" ao state "sectionName" - usado para adicionar como título da página
     } else {
-      navigate(`/app_estoque/stocks/${stockId}`); // Redireciona se a seção não for encontrada
+      navigate(`/app_estoque/stock/${stockId}`); // Redireciona se a seção não for encontrada
     }
   }, [stockId, sectionId, navigate]);
 
