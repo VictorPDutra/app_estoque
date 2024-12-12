@@ -43,7 +43,7 @@
 }
 
 .stock-management button {
-  min-width: 118px;
+  width: 118px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -90,11 +90,12 @@
 }
 
 .stock-item button {
+  width: 70px;
   margin-top: 16px;
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 8px 12px;
+  padding: 8px;
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;

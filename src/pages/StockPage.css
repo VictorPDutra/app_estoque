@@ -25,7 +25,6 @@
 .stock-page .back-btn:hover {
   background-color: white;
   border: 1.5px solid #0056b3;
-
   transform: scale(1.02);
 }
 

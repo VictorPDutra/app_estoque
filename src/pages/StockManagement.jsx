@@ -5,10 +5,14 @@ import "./StockManagement.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getFromLocalStorage, saveToLocalStorage } from "../utils/storage";
+import ConfirmationModal from "../globalcomponents/ConfirmationModal";
 
 const StockManagement = () => {
   const [stocks, setStocks] = useState([]);
   const [newStockName, setNewStockName] = useState("");
+  // states para modal de exclusão
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [stockToDelete, setStockToDelete] = useState(null);
 
   useEffect(() => {
     const storedStocks = getFromLocalStorage("stocks") || [];
@@ -26,10 +30,25 @@ const StockManagement = () => {
     setNewStockName("");
   };
 
-  const deleteStock = (id) => {
-    const updatedStocks = stocks.filter((stock) => stock.id !== id);
+  // modal de exclusão
+  const confirmDeleteStock = (id) => {
+    setStockToDelete(id);
+    setIsModalOpen(true);
+  };
+
+  const deleteStock = () => {
+    const updatedStocks = stocks.filter((stock) => stock.id !== stockToDelete);
     setStocks(updatedStocks);
     saveToLocalStorage("stocks", updatedStocks);
+    // modal de exclusão
+    setIsModalOpen(false);
+    setStockToDelete(null);
+  };
+
+  // modal de exclusão
+  const cancelDelete = () => {
+    setIsModalOpen(false);
+    setStockToDelete(null);
   };
 
   return (
@@ -56,7 +75,10 @@ const StockManagement = () => {
               {stock.name}
               <button
                 className="removing"
-                onClick={() => deleteStock(stock.id)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  confirmDeleteStock(stock.id);
+                }}
               >
                 Excluir
               </button>
@@ -64,6 +86,14 @@ const StockManagement = () => {
           </Link>
         ))}
       </ul>
+      {/* modal de exclusão */}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        title="Confirmar Exclusão?"
+        message="Ao confirmar você perderá todos os dados deste estoque!"
+        onConfirm={deleteStock}
+        onCancel={cancelDelete}
+      />
     </div>
   );
 };
