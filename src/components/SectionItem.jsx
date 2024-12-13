@@ -87,7 +87,7 @@ const SectionItem = ({ section, stockId, setSections }) => {
       <ConfirmationModal
         isOpen={isModalOpen}
         title="Confirmar Exclusão?"
-        message="Ao confirmar você perderá todos os dados deste estoque!"
+        message="Ao confirmar você perderá todos os dados desta seção!"
         onConfirm={removeSection}
         onCancel={cancelDelete}
       />

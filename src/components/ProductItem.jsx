@@ -144,7 +144,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
       <ConfirmationModal
         isOpen={isModalOpen}
         title="Confirmar Exclusão?"
-        message="Ao confirmar você perderá todos os dados deste estoque!"
+        message="Ao confirmar você perderá todos os dados deste produto!"
         onConfirm={removeProduct}
         onCancel={cancelDelete}
       />
