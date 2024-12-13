@@ -4,6 +4,7 @@ import "./ProductItem.css";
 
 import React, { useState } from "react";
 import { saveToLocalStorage, getFromLocalStorage } from "../utils/storage";
+import ConfirmationModal from "../globalcomponents/ConfirmationModal";
 
 const ProductItem = ({ product, sectionId, setProducts }) => {
   const [editing, setEditing] = useState(false);
@@ -12,7 +13,11 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
   const [updatedQuantity, setUpdatedQuantity] = useState(product.quantity);
   const [addAmount, setAddAmount] = useState(0);
   const [removeAmount, setRemoveAmount] = useState(0);
+  // states para modal de exclusão
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
 
+  // updateProduct
   const updateProduct = () => {
     const products = getFromLocalStorage(sectionId) || [];
     const updatedProducts = products.map((p) =>
@@ -23,13 +28,30 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
     setEditing(false);
   };
 
-  const removeProduct = () => {
-    const products = getFromLocalStorage(sectionId) || [];
-    const updatedProducts = products.filter((p) => p.id !== product.id);
-    saveToLocalStorage(sectionId, updatedProducts);
-    setProducts(updatedProducts);
+  // modal de exclusão
+  const confirmDeleteProduct = (id) => {
+    setProductToDelete(id);
+    setIsModalOpen(true);
   };
 
+  // removeProduct
+  const removeProduct = () => {
+    const products = getFromLocalStorage(sectionId) || [];
+    const updatedProducts = products.filter((p) => p.id !== productToDelete);
+    saveToLocalStorage(sectionId, updatedProducts);
+    setProducts(updatedProducts);
+    // modal de exclusão
+    setIsModalOpen(false);
+    setProductToDelete(null);
+  };
+
+  // modal de exclusão
+  const cancelDelete = () => {
+    setIsModalOpen(false);
+    setProductToDelete(null);
+  };
+
+  // add e subtract product
   const addQuantity = () => {
     const products = getFromLocalStorage(sectionId) || [];
     const updatedProducts = products.map((p) =>
@@ -71,7 +93,13 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
           <button onClick={() => setAdding(!adding)}>Entrada</button>
           <button onClick={() => setRemoving(!removing)}>Saída</button>
           {/* <button onClick={() => setEditing(!editing)}>Editar</button> */}
-          <button className="delete-button" onClick={removeProduct}>
+          <button
+            className="delete-button"
+            onClick={(e) => {
+              e.preventDefault();
+              confirmDeleteProduct(product.id);
+            }}
+          >
             Excluir
           </button>
         </div>
@@ -112,6 +140,14 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
           <button onClick={subtractQuantity}>Retirar</button>
         </div>
       )}
+      {/* modal de exclusão */}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        title="Confirmar Exclusão?"
+        message="Ao confirmar você perderá todos os dados deste estoque!"
+        onConfirm={removeProduct}
+        onCancel={cancelDelete}
+      />
     </div>
   );
 };

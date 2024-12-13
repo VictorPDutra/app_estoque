@@ -12,7 +12,7 @@ const SectionItem = ({ section, stockId, setSections }) => {
   const [updatedQuantity, setUpdatedQuantity] = useState(section.name);
   // states para modal de exclusão
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [stockToDelete, setStockToDelete] = useState(null);
+  const [sectionToDelete, setSectionToDelete] = useState(null);
 
   // updateSection
   const updateSection = () => {
@@ -27,25 +27,25 @@ const SectionItem = ({ section, stockId, setSections }) => {
 
   // modal de exclusão
   const confirmDeleteSection = (id) => {
-    setStockToDelete(id);
+    setSectionToDelete(id);
     setIsModalOpen(true);
   };
 
   // removeSection
   const removeSection = () => {
     const sections = getFromLocalStorage(stockId) || [];
-    const updatedSections = sections.filter((p) => p.id !== stockToDelete); // section.id
+    const updatedSections = sections.filter((p) => p.id !== sectionToDelete); // section.id
     saveToLocalStorage(stockId, updatedSections);
     setSections(updatedSections);
     // modal de exclusão
     setIsModalOpen(false);
-    setStockToDelete(null);
+    setSectionToDelete(null);
   };
 
   // modal de exclusão
   const cancelDelete = () => {
     setIsModalOpen(false);
-    setStockToDelete(null);
+    setSectionToDelete(null);
   };
 
   return (
