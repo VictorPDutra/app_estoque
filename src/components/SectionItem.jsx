@@ -5,10 +5,14 @@ import "./SectionItem.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { saveToLocalStorage, getFromLocalStorage } from "../utils/storage";
+import ConfirmationModal from "../globalcomponents/ConfirmationModal";
 
 const SectionItem = ({ section, stockId, setSections }) => {
   const [editing, setEditing] = useState(false);
   const [updatedQuantity, setUpdatedQuantity] = useState(section.name);
+  // states para modal de exclusão
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [stockToDelete, setStockToDelete] = useState(null);
 
   // updateSection
   const updateSection = () => {
@@ -21,12 +25,27 @@ const SectionItem = ({ section, stockId, setSections }) => {
     setEditing(false);
   };
 
+  // modal de exclusão
+  const confirmDeleteSection = (id) => {
+    setStockToDelete(id);
+    setIsModalOpen(true);
+  };
+
   // removeSection
   const removeSection = () => {
     const sections = getFromLocalStorage(stockId) || [];
-    const updatedSections = sections.filter((p) => p.id !== section.id);
+    const updatedSections = sections.filter((p) => p.id !== stockToDelete); // section.id
     saveToLocalStorage(stockId, updatedSections);
     setSections(updatedSections);
+    // modal de exclusão
+    setIsModalOpen(false);
+    setStockToDelete(null);
+  };
+
+  // modal de exclusão
+  const cancelDelete = () => {
+    setIsModalOpen(false);
+    setStockToDelete(null);
   };
 
   return (
@@ -41,7 +60,13 @@ const SectionItem = ({ section, stockId, setSections }) => {
         </Link>
         <div className="actions">
           <button onClick={() => setEditing(!editing)}>Editar</button>
-          <button className="delete-button" onClick={removeSection}>
+          <button
+            className="delete-button"
+            onClick={(e) => {
+              e.preventDefault();
+              confirmDeleteSection(section.id);
+            }}
+          >
             Excluir
           </button>
         </div>
@@ -58,6 +83,14 @@ const SectionItem = ({ section, stockId, setSections }) => {
           <button onClick={updateSection}>Salvar</button>
         </div>
       )}
+      {/* modal de exclusão */}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        title="Confirmar Exclusão?"
+        message="Ao confirmar você perderá todos os dados deste estoque!"
+        onConfirm={removeSection}
+        onCancel={cancelDelete}
+      />
     </div>
   );
 };
