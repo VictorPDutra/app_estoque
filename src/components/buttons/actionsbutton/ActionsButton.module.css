@@ -1,0 +1,20 @@
+.actions_button {
+  background-color: #e7e7e7;
+  color: rgb(77, 77, 77);
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.actions_button:hover {
+  background-color: #a3a3a3;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.actions_button:active {
+  transform: translateY(0);
+}

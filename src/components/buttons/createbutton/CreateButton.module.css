@@ -1,0 +1,14 @@
+.create_button {
+  width: 118px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create_button:hover {
+  background-color: #0056b3;
+}
