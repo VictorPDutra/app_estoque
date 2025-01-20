@@ -8,6 +8,7 @@ import { getFromLocalStorage, saveToLocalStorage } from "../../utils/storage";
 // import { useValidate } from "../hooks/useValidate";
 import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
 import CreateButton from "../../components/buttons/createbutton/CreateButton";
+import ActionsButton from "../../components/buttons/actionsbutton/ActionsButton";
 
 const StockManagement = () => {
   const [stocks, setStocks] = useState([]);
@@ -39,6 +40,12 @@ const StockManagement = () => {
     setStockToDelete(id);
     setIsModalOpen(true);
   };
+
+  // deleteStock
+  // const remove = (e) => {
+  //   e.preventDefault();
+  //   confirmDeleteStock(stock.id);
+  // };
 
   const deleteStock = () => {
     const updatedStocks = stocks.filter((stock) => stock.id !== stockToDelete);
@@ -77,6 +84,7 @@ const StockManagement = () => {
           >
             <li className="stock-item">
               {stock.name}
+              {/* <ActionsButton action={confirmDeleteStock} label={"Excluir"} /> */}
               <button
                 className="removing"
                 onClick={(e) => {

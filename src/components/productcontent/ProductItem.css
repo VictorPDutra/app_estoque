@@ -38,37 +38,6 @@
   margin-left: auto; /* Empurra os botões para a direita */
 }
 
-.product-item .actions button {
-  background-color: #e7e7e7;
-  color: rgb(77, 77, 77);
-  border: none;
-  padding: 8px 12px;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.product-item .actions button:hover {
-  background-color: #a3a3a3;
-  color: #ffffff;
-  transform: translateY(-2px);
-}
-
-.product-item .actions button:active {
-  transform: translateY(0);
-}
-
-.product-item .actions .delete-button {
-  background-color: #dc3545;
-  color: white;
-}
-
-.product-item .actions .delete-button:hover {
-  background-color: #b32e3b;
-  color: white;
-}
-
 /* Estilo para os formulários */
 .product-item .form {
   display: flex;

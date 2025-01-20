@@ -29,13 +29,12 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
     setEditing(false);
   };
 
-  // modal de exclusão
-  const confirmDeleteProduct = (id) => {
-    setProductToDelete(id);
+  // modal de exclusão - remove
+  const confirmRemoveProduct = () => {
+    setProductToDelete(product.id);
     setIsModalOpen(true);
   };
 
-  // removeProduct
   const removeProduct = () => {
     const products = getFromLocalStorage(sectionId) || [];
     const updatedProducts = products.filter((p) => p.id !== productToDelete);
@@ -46,7 +45,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
     setProductToDelete(null);
   };
 
-  // modal de exclusão
+  // modal de exclusão - cancel
   const cancelDelete = () => {
     setIsModalOpen(false);
     setProductToDelete(null);
@@ -101,16 +100,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
         <div className="actions">
           <ActionsButton action={add} label={"Entrada"} />
           <ActionsButton action={sub} label={"Saída"} />
-          {/* <button onClick={() => setEditing(!editing)}>Editar</button> */}
-          <button
-            className="delete-button"
-            onClick={(e) => {
-              e.preventDefault();
-              confirmDeleteProduct(product.id);
-            }}
-          >
-            Excluir
-          </button>
+          <ActionsButton action={confirmRemoveProduct} label={"Excluir"} />
         </div>
       </div>
 

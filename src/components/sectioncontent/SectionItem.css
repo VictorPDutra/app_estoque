@@ -43,37 +43,6 @@
   margin-left: auto; /* Empurra os botões para a direita */
 }
 
-.section-item .actions button {
-  background-color: #e7e7e7;
-  color: rgb(77, 77, 77);
-  border: none;
-  padding: 8px 12px;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.section-item .actions button:hover {
-  background-color: #a3a3a3;
-  color: #ffffff;
-  transform: translateY(-2px);
-}
-
-.section-item .actions button:active {
-  transform: translateY(0);
-}
-
-.section-item .actions .delete-button {
-  background-color: #dc3545;
-  color: white;
-}
-
-.section-item .actions .delete-button:hover {
-  background-color: #b32e3b;
-  color: white;
-}
-
 /* Estilo para os formulários */
 .section-item .form {
   display: flex;

@@ -30,13 +30,12 @@ const SectionItem = ({ section, stockId, setSections }) => {
     setEditing(false);
   };
 
-  // modal de exclusão
-  const confirmDeleteSection = (id) => {
-    setSectionToDelete(id);
+  // modal de exclusão - remove
+  const confirmRemoveSection = () => {
+    setSectionToDelete(section.id);
     setIsModalOpen(true);
   };
 
-  // removeSection
   const removeSection = () => {
     const sections = getFromLocalStorage(stockId) || [];
     const updatedSections = sections.filter((p) => p.id !== sectionToDelete); // section.id
@@ -47,7 +46,7 @@ const SectionItem = ({ section, stockId, setSections }) => {
     setSectionToDelete(null);
   };
 
-  // modal de exclusão
+  // modal de exclusão - cancel
   const cancelDelete = () => {
     setIsModalOpen(false);
     setSectionToDelete(null);
@@ -65,15 +64,7 @@ const SectionItem = ({ section, stockId, setSections }) => {
         </Link>
         <div className="actions">
           <ActionsButton action={edit} label={"Editar"} />
-          <button
-            className="delete-button"
-            onClick={(e) => {
-              e.preventDefault();
-              confirmDeleteSection(section.id);
-            }}
-          >
-            Excluir
-          </button>
+          <ActionsButton action={confirmRemoveSection} label={"Excluir"} />
         </div>
       </div>
 

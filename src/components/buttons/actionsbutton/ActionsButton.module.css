@@ -1,3 +1,4 @@
+/* Delete */
 .actions_button {
   background-color: #e7e7e7;
   color: rgb(77, 77, 77);
@@ -11,10 +12,32 @@
 
 .actions_button:hover {
   background-color: #a3a3a3;
-  color: #ffffff;
+  color: #fff;
   transform: translateY(-2px);
 }
 
 .actions_button:active {
+  transform: translateY(0);
+}
+
+/* Delete */
+.remove_button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.remove_button:hover {
+  background-color: #b32e3b;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.remove_button:active {
   transform: translateY(0);
 }
