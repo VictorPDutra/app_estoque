@@ -1,10 +1,12 @@
 .navComponent {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #f2f2f2;
+  height: 64px;
+  background-color: #f2f2f2;
+  color: #007bff;
 }
 
 .navComponent h1 {
@@ -26,17 +28,33 @@
 
 .navComponent .toolList a {
   padding: 8px;
+  font-size: 18px;
   text-decoration: none;
 }
 
 .navComponent .active {
   transition: 0.4s;
-  background-color: #f2f2f2;
-  color: rgb(27, 54, 105);
+  background-color: #007bff;
+  color: #f2f2f2;
   border-radius: 5px;
 }
 
 .navComponent a {
-  color: #f2f2f2;
-  font-weight: 300;
+  color: #007bff;
+  letter-spacing: 0.2px;
+  /* font-weight: 300; */
+}
+
+@media (max-width: 660px) {
+  .navComponent {
+    padding: 10px 10px;
+  }
+
+  .navComponent .toolList {
+    gap: 2px;
+  }
+
+  .navComponent .toolList a {
+    font-size: 16px;
+  }
 }
