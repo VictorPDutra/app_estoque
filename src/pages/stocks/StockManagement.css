@@ -1,0 +1,109 @@
+/*StockManagement*/
+
+.stock-management {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.stock-management h1 {
+  font-size: 28px;
+  color: #343a40;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.stock-management label {
+  font-weight: bold;
+  font-size: 15px;
+  display: block;
+}
+
+.stock-management .add-estoque-form {
+  max-width: 616px;
+  margin: 0 auto;
+}
+
+.stock-management input {
+  width: calc(100% - 100px);
+  max-width: 300px;
+  margin: 8px 12px 12px 0;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.stock-management input:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 4px rgba(0, 123, 255, 0.5);
+}
+
+.stock-management ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.stock-item {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stock-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.stock-management .stock-link {
+  text-decoration: none;
+}
+
+.stock-item button {
+  width: 70px;
+  margin-top: 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.stock-item button:hover {
+  background-color: #c82333;
+}
+
+@media (max-width: 660px) {
+  .stock-management ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stock-management .add-estoque-form {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .stock-management input {
+    width: 100%;
+  }
+}
