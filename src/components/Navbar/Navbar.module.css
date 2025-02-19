@@ -42,7 +42,6 @@
 .navComponent a {
   color: #007bff;
   letter-spacing: 0.2px;
-  /* font-weight: 300; */
 }
 
 @media (max-width: 660px) {
