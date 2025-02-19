@@ -4,6 +4,7 @@ import styles from "./Home.module.css";
 const Home = () => {
   return (
     <div className={styles.background_home}>
+      <img src="public/" alt="" />
       <div className={styles.home}>
         <p className={styles.home_description}>
           Bem vindo ao <span className={styles.logo}>STOCKS</span>! <br />
