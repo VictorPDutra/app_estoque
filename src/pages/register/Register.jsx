@@ -15,31 +15,25 @@ const Register = () => {
     e.preventDefault();
     setError("");
     if (password !== confirmPassword) {
-      setError("Senhas não conferem");
+      setError("As senhas devem ser iguais!");
       return;
     }
 
-    try {
-      setLoading(true);
-      // const response = await api.post("/register", {
-      //   displayName,
-      //   email,
-      //   password,
-      // });
-      // console.log(response.data);
-      setLoading(false);
-      // setUser(response.data);
-      // navigate("/app_estoque");
-    } catch (error) {
-      setLoading(false);
-      setError(error.response.data.error);
-    }
+    const user = {
+      displayName,
+      email,
+      password,
+    };
+
+    console.log(user);
   };
 
   return (
     <div className={styles.register}>
-      <h1>Cadastre-se para utilizar o sistema</h1>
-      <p>Crie seu usuário e começe a adicionar seu estoque</p>
+      <div className={styles.header}>
+        <h1>Cadastre-se para utilizar o sistema</h1>
+        <p>Crie seu usuário e começe a adicionar seu estoque</p>
+      </div>
       <form onSubmit={handleSubmit}>
         <label>
           <span>Nome:</span>
@@ -85,9 +79,9 @@ const Register = () => {
             onChange={(e) => setConfirmPassWord(e.target.value)}
           />
         </label>
+        {error && <p className="error">{error}</p>}
         {!loading && <CreateButton label={"Cadastrar"} />}
         {loading && <CreateButton label={"Cadastrando..."} disabled={true} />}
-        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );
