@@ -11,10 +11,12 @@ const firebaseConfig = {
   projectId: "gerenciador-de-estoques-51e76",
   storageBucket: "gerenciador-de-estoques-51e76.firebasestorage.app",
   messagingSenderId: "981950568944",
-  appId: "1:981950568944:web:8ec112b64e60ead5cf2535"
+  appId: "1:981950568944:web:8ec112b64e60ead5cf2535",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+
+export { app, db };
