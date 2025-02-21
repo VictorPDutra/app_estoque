@@ -15,8 +15,8 @@ export const useAuthentication = () => {
   const [loading, setLoading] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  // cleanup
-  // deal with memory leak
+  // Cleanup
+  // Deal with memory leak
   const [cancelled, setCancelled] = useState(false);
 
   const auth = getAuth();
@@ -27,6 +27,7 @@ export const useAuthentication = () => {
     }
   }
 
+  // Create user
   const createUser = async (data) => {
     checkIfIsCancelled();
 
@@ -66,11 +67,44 @@ export const useAuthentication = () => {
     }
   };
 
+  // Login
+  const loginUser = async (data) => {
+    checkIfIsCancelled();
+
+    setLoading(true);
+    setError(false);
+
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+    } catch (error) {
+      console.log("Erro completo:", error);
+
+      let systemErrorMessage;
+
+      if (error.message.includes("invalid-credential")) {
+        systemErrorMessage = "Confira seu email e senha e tente novamente.";
+      } else {
+        systemErrorMessage = "Ocorreu um erro! Tente novamente mais tarde.";
+      }
+
+      setError(systemErrorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Logout
+  const logoutUser = () => {
+    checkIfIsCancelled();
+
+    signOut(auth);
+  };
+
   useEffect(() => {
     return () => {
       setCancelled(true);
     };
   }, []);
 
-  return { auth, error, loading, success, createUser };
+  return { auth, error, loading, success, createUser, loginUser, logoutUser };
 };

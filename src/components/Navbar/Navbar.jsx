@@ -1,6 +1,8 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+// CSS
 import styles from "./Navbar.module.css";
+
+import { NavLink } from "react-router-dom";
+import { useAuthentication } from "../../hooks/useAuthentication";
 
 const Navbar = () => {
   return (

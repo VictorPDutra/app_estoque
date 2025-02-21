@@ -1,5 +1,7 @@
-import CreateButton from "../../components/buttons/createbutton/CreateButton";
+// CSS
 import styles from "./Register.module.css";
+// Components
+import CreateButton from "../../components/buttons/createbutton/CreateButton";
 
 import { useEffect, useState } from "react";
 import { useAuthentication } from "../../hooks/useAuthentication";

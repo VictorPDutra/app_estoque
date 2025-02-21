@@ -1,33 +1,35 @@
-import CreateButton from "../../components/buttons/createbutton/CreateButton";
+// CSS
 import styles from "./Login.module.css";
+// Components
+import CreateButton from "../../components/buttons/createbutton/CreateButton";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuthentication } from "../../hooks/useAuthentication";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+
+  const { loginUser, erro: authError, loading } = useAuthentication();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    try {
-      // setLoading(true);
-      // const response = await api.post("/login", {
-      //   email,
-      //   password,
-      // });
-      // console.log(response.data);
-      // setLoading(false);
-      // setUser(response.data);
-      // navigate("/app_estoque");
-    } catch (error) {
-      // setLoading(false);
-      setError(error.response.data.error);
-    }
+    const user = {
+      email,
+      password,
+    };
+
+    const res = await loginUser(user);
   };
+
+  useEffect(() => {
+    if (authError) {
+      setError(authError);
+    }
+  }, [authError]);
 
   return (
     <div className={styles.login}>
