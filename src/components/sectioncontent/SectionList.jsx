@@ -4,21 +4,28 @@ import "./SectionList.css";
 
 import React, { useState, useEffect } from "react";
 import SectionItem from "./SectionItem";
-import { getFromLocalStorage } from "../../utils/storage";
+import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 
 const SectionList = ({ stockId, updateTrigger }) => {
   const [sections, setSections] = useState([]);
+  const { getDocuments } = useHandleDocuments();
+
+  // Get sections from Firebase
+  const fetchSections = async () => {
+    const currentSections = (await getDocuments("estoques", stockId)) || [];
+    setSections(currentSections);
+    console.log(currentSections);
+  };
 
   useEffect(() => {
-    const storedSections = getFromLocalStorage(stockId) || [];
-    setSections(storedSections);
+    fetchSections();
     updateTrigger = 0; // Retornamos updateTrigger para seu estado inicial
   }, [stockId, updateTrigger]);
 
   return (
     // section-list
     <div className="section-list">
-      <h2>Seções</h2>
+      <h2>Linhas</h2>
       {/* section-items */}
       <div className="section-items">
         {/* products.map((section) */}

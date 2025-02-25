@@ -3,11 +3,12 @@
 import "./ProductItem.css";
 
 import React, { useState } from "react";
-import { saveToLocalStorage, getFromLocalStorage } from "../../utils/storage";
+import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
 import ActionsButton from "../buttons/actionsbutton/ActionsButton";
 
-const ProductItem = ({ product, sectionId, setProducts }) => {
+const ProductItem = ({ stockId, sectionId, product, setProducts }) => {
+  const { deleteDocument, updateDocument } = useHandleDocuments();
   const [editing, setEditing] = useState(false);
   const [adding, setAdding] = useState(false);
   const [removing, setRemoving] = useState(false);
@@ -29,24 +30,29 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
     setEditing(false);
   };
 
-  // modal de exclusão - remove
-  const confirmRemoveProduct = () => {
+  // Delete Product
+  // Modal - Open delete
+  const modalDelete = () => {
     setProductToDelete(product.id);
     setIsModalOpen(true);
   };
 
-  const removeProduct = () => {
-    const products = getFromLocalStorage(sectionId) || [];
-    const updatedProducts = products.filter((p) => p.id !== productToDelete);
-    saveToLocalStorage(sectionId, updatedProducts);
-    setProducts(updatedProducts);
-    // modal de exclusão
+  // Modal - Cancel delete
+  const cancelDelete = () => {
     setIsModalOpen(false);
     setProductToDelete(null);
   };
 
-  // modal de exclusão - cancel
-  const cancelDelete = () => {
+  // Confirm delete
+  const handleDeleteProduct = async () => {
+    if (!productToDelete) return;
+
+    await deleteDocument("estoques", productToDelete, stockId, sectionId);
+
+    setProducts((prevProducts) =>
+      prevProducts.filter((prev) => prev.id !== productToDelete)
+    );
+
     setIsModalOpen(false);
     setProductToDelete(null);
   };
@@ -60,31 +66,43 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
     setRemoving(!removing);
   };
 
+  // Atualizar quantidade do produto no Firestore
+  const handleUpdateQuantity = async (change) => {
+    try {
+      const updatedQuantity = Math.max(0, product.quantity + change);
+
+      // Atualiza o produto no Firestore
+      await updateDocument(
+        "estoques",
+        product.id,
+        stockId,
+        {
+          quantity: updatedQuantity,
+        },
+        sectionId
+      );
+
+      // Atualiza a lista de produtos no estado local para refletir a mudança
+      setProducts((prevProducts) =>
+        prevProducts.map((p) =>
+          p.id === product.id ? { ...p, quantity: updatedQuantity } : p
+        )
+      );
+    } catch (error) {
+      console.error("Erro ao atualizar quantidade:", error);
+    }
+  };
+
+  // Adicionar quantidade
   const addQuantity = () => {
-    const products = getFromLocalStorage(sectionId) || [];
-    const updatedProducts = products.map((p) =>
-      p.id === product.id
-        ? { ...p, quantity: p.quantity + parseInt(addAmount, 10) }
-        : p
-    );
-    saveToLocalStorage(sectionId, updatedProducts);
-    setProducts(updatedProducts);
+    handleUpdateQuantity(parseInt(addAmount, 10));
     setAdding(false);
     setAddAmount(0);
   };
 
+  // Subtrair quantidade
   const subtractQuantity = () => {
-    const products = getFromLocalStorage(sectionId) || [];
-    const updatedProducts = products.map((p) =>
-      p.id === product.id
-        ? {
-            ...p,
-            quantity: Math.max(0, p.quantity - parseInt(removeAmount, 10)),
-          }
-        : p
-    );
-    saveToLocalStorage(sectionId, updatedProducts);
-    setProducts(updatedProducts);
+    handleUpdateQuantity(-parseInt(removeAmount, 10));
     setRemoving(false);
     setRemoveAmount(0);
   };
@@ -100,7 +118,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
         <div className="actions">
           <ActionsButton action={add} label={"Entrada"} />
           <ActionsButton action={sub} label={"Saída"} />
-          <ActionsButton action={confirmRemoveProduct} label={"Excluir"} />
+          <ActionsButton action={modalDelete} label={"Excluir"} />
         </div>
       </div>
 
@@ -122,7 +140,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
             type="number"
             placeholder="Quantidade a acrescentar"
             value={addAmount}
-            onChange={(e) => setAddAmount(parseInt(e.target.value, 10))}
+            onChange={(e) => setAddAmount(e.target.value)}
           />
           <button onClick={addQuantity}>Adicionar</button>
         </div>
@@ -134,7 +152,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
             type="number"
             placeholder="Quantidade a retirar"
             value={removeAmount}
-            onChange={(e) => setRemoveAmount(parseInt(e.target.value, 10))}
+            onChange={(e) => setRemoveAmount(e.target.value)}
           />
           <button onClick={subtractQuantity}>Retirar</button>
         </div>
@@ -144,7 +162,7 @@ const ProductItem = ({ product, sectionId, setProducts }) => {
         isOpen={isModalOpen}
         title="Confirmar Exclusão?"
         message="Ao confirmar você perderá todos os dados deste produto!"
-        onConfirm={removeProduct}
+        onConfirm={handleDeleteProduct}
         onCancel={cancelDelete}
       />
     </div>

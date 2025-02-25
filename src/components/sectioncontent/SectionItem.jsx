@@ -4,50 +4,62 @@ import "./SectionItem.css";
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { saveToLocalStorage, getFromLocalStorage } from "../../utils/storage";
+import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
 import ActionsButton from "../buttons/actionsbutton/ActionsButton";
 
 const SectionItem = ({ section, stockId, setSections }) => {
-  const [editing, setEditing] = useState(false);
-  const [updatedQuantity, setUpdatedQuantity] = useState(section.name);
-  // states para modal de exclusão
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { deleteDocument, updateDocument } = useHandleDocuments();
   const [sectionToDelete, setSectionToDelete] = useState(null);
+  const [updatedSection, setUpdatedSection] = useState(section.name);
+  const [editing, setEditing] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // updateSection
+  // Update Section
   const edit = () => {
     setEditing(!editing);
   };
 
-  const updateSection = () => {
-    const sections = getFromLocalStorage(stockId) || [];
-    const updatedSections = sections.map((p) =>
-      p.id === section.id ? { ...p, name: updatedQuantity } : p
+  const updateSection = async () => {
+    if (!updatedSection.trim()) return;
+
+    await updateDocument("estoques", section.id, stockId, {
+      name: updatedSection,
+    });
+
+    setSections((prevSections) =>
+      prevSections.map((prev) =>
+        prev.id === section.id ? { ...prev, name: updatedSection } : prev
+      )
     );
-    saveToLocalStorage(stockId, updatedSections);
-    setSections(updatedSections);
+
     setEditing(false);
   };
 
-  // modal de exclusão - remove
-  const confirmRemoveSection = () => {
+  // Delete Section
+  // Modal - Open delete
+  const modalDelete = () => {
+    console.log(section.id);
     setSectionToDelete(section.id);
     setIsModalOpen(true);
   };
 
-  const removeSection = () => {
-    const sections = getFromLocalStorage(stockId) || [];
-    const updatedSections = sections.filter((p) => p.id !== sectionToDelete); // section.id
-    saveToLocalStorage(stockId, updatedSections);
-    setSections(updatedSections);
-    // modal de exclusão
+  // Modal - Cancel delete
+  const cancelDelete = () => {
     setIsModalOpen(false);
     setSectionToDelete(null);
   };
 
-  // modal de exclusão - cancel
-  const cancelDelete = () => {
+  // Confirm delete
+  const handleDeleteSection = async () => {
+    if (!sectionToDelete) return;
+
+    await deleteDocument("estoques", sectionToDelete, stockId);
+
+    setSections((prevSections) =>
+      prevSections.filter((section) => section.id !== sectionToDelete)
+    );
+
     setIsModalOpen(false);
     setSectionToDelete(null);
   };
@@ -64,27 +76,27 @@ const SectionItem = ({ section, stockId, setSections }) => {
         </Link>
         <div className="actions">
           <ActionsButton action={edit} label={"Editar"} />
-          <ActionsButton action={confirmRemoveSection} label={"Excluir"} />
+          <ActionsButton action={modalDelete} label={"Excluir"} />
         </div>
       </div>
 
-      {/* Formulários para editar, acrescentar e retirar */}
+      {/* Formulário para editar nome da seção */}
       {editing && (
         <div className="form">
           <input
             type="text"
-            value={updatedQuantity}
-            onChange={(e) => setUpdatedQuantity(e.target.value)}
+            value={updatedSection}
+            onChange={(e) => setUpdatedSection(e.target.value)}
           />
           <button onClick={updateSection}>Salvar</button>
         </div>
       )}
-      {/* modal de exclusão */}
+      {/* Modal de exclusão */}
       <ConfirmationModal
         isOpen={isModalOpen}
         title="Confirmar Exclusão?"
         message="Ao confirmar você perderá todos os dados desta seção!"
-        onConfirm={removeSection}
+        onConfirm={handleDeleteSection}
         onCancel={cancelDelete}
       />
     </div>

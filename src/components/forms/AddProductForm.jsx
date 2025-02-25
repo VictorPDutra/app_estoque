@@ -3,27 +3,33 @@
 import "./AddProductForm.css";
 
 import React, { useState } from "react";
-import { getFromLocalStorage, saveToLocalStorage } from "../../utils/storage";
+import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 import CreateButton from "../buttons/createbutton/CreateButton";
 
-const AddProductForm = ({ sectionId, onProductAdded }) => {
+const AddProductForm = ({ stockId, sectionId, onProductAdded }) => {
   const [productName, setProductName] = useState("");
   const [productQuantity, setProductQuantity] = useState(0);
+  const { addDocument } = useHandleDocuments();
 
-  const addProduct = (e) => {
+  const addProduct = async (e) => {
     e.preventDefault();
 
     if (!productName.trim() || productQuantity <= 0) return;
 
-    const products = getFromLocalStorage(sectionId) || [];
     const newProduct = {
-      id: Date.now(),
       name: productName.trim(),
       quantity: parseInt(productQuantity, 10),
+      createAt: new Date(),
     };
 
-    const updatedProducts = [...products, newProduct];
-    saveToLocalStorage(sectionId, updatedProducts);
+    const updatedProducts = await addDocument(
+      "estoques",
+      newProduct,
+      stockId,
+      sectionId
+    );
+    console.log("Produto criado com ID:", updatedProducts);
+
     setProductName("");
     setProductQuantity(0);
     onProductAdded(); // Função que vai criar gatilho de atualização da ProductList
@@ -32,7 +38,7 @@ const AddProductForm = ({ sectionId, onProductAdded }) => {
   return (
     <form className="add-products" onSubmit={addProduct}>
       <label>
-        <span>Nome do produto:</span>
+        <span>Nome do acessório:</span>
       </label>
       <input
         className="name-input"

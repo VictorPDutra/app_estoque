@@ -4,68 +4,86 @@ import "./StockManagement.css";
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getFromLocalStorage, saveToLocalStorage } from "../../utils/storage";
-// import { useValidate } from "../hooks/useValidate";
 import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
 import CreateButton from "../../components/buttons/createbutton/CreateButton";
-import ActionsButton from "../../components/buttons/actionsbutton/ActionsButton";
+import { useHandleDocuments } from "../../hooks/useHandleDocuments";
+import { useAuthentication } from "../../hooks/useAuthentication";
 
 const StockManagement = () => {
-  const [stocks, setStocks] = useState([]);
   const [newStockName, setNewStockName] = useState("");
-  // states para modal de exclusão
+  const [stocksFirebase, setStocksFirebase] = useState([]);
+  const [stockToDeleteFirebase, setStockToDeleteFirebase] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [stockToDelete, setStockToDelete] = useState(null);
 
-  useEffect(() => {
-    const storedStocks = getFromLocalStorage("stocks") || [];
-    setStocks(storedStocks);
-  }, []);
+  // Dados necessários para criação de estoque no Firebase
+  const { addDocument, getDocuments, deleteDocument, loading, error } =
+    useHandleDocuments();
+  const { auth } = useAuthentication();
 
-  const addStock = (e) => {
-    e.preventDefault();
-
-    // useValidate("stocks", newStockName);
-
-    if (!newStockName.trim()) return;
-    const newStock = { id: Date.now(), name: newStockName.trim() };
-    const updatedStocks = [...stocks, newStock];
-    setStocks(updatedStocks);
-    saveToLocalStorage("stocks", updatedStocks);
-    setNewStockName("");
+  // Get stocks from Firebase
+  const fetchStocks = async () => {
+    const currentStocks = (await getDocuments("estoques")) || [];
+    setStocksFirebase(currentStocks);
   };
 
-  // modal de exclusão
-  const confirmDeleteStock = (id) => {
-    setStockToDelete(id);
+  useEffect(() => {
+    fetchStocks();
+  }, []);
+
+  // Criação de estoque
+  const handleAddStock = async (e) => {
+    e.preventDefault();
+
+    if (!newStockName.trim()) return;
+
+    const newStock = {
+      name: newStockName.trim(),
+      userId: auth.currentUser.uid,
+      createdAt: new Date(),
+    };
+
+    const stockId = await addDocument("estoques", newStock);
+
+    if (stockId) {
+      setStocksFirebase((prevStocks) => [
+        ...prevStocks,
+        { id: stockId, ...newStock },
+      ]);
+      setNewStockName("");
+    }
+  };
+
+  // Modal de exclusão
+  const modalDelete = (id) => {
+    console.log(id);
+    setStockToDeleteFirebase(id);
     setIsModalOpen(true);
   };
 
-  // deleteStock
-  // const remove = (e) => {
-  //   e.preventDefault();
-  //   confirmDeleteStock(stock.id);
-  // };
-
-  const deleteStock = () => {
-    const updatedStocks = stocks.filter((stock) => stock.id !== stockToDelete);
-    setStocks(updatedStocks);
-    saveToLocalStorage("stocks", updatedStocks);
-    // modal de exclusão
-    setIsModalOpen(false);
-    setStockToDelete(null);
-  };
-
-  // modal de exclusão
+  // Modal de exclusão
   const cancelDelete = () => {
     setIsModalOpen(false);
-    setStockToDelete(null);
+    setStockToDeleteFirebase(null);
+  };
+
+  // Deletar estoque no Firebase
+  const handleDeleteStock = async () => {
+    if (!stockToDeleteFirebase) return;
+
+    await deleteDocument("estoques", stockToDeleteFirebase);
+
+    setStocksFirebase((prevStocks) =>
+      prevStocks.filter((stock) => stock.id !== stockToDeleteFirebase)
+    );
+
+    setIsModalOpen(false);
+    setStockToDeleteFirebase(null);
   };
 
   return (
     <div className="stock-management">
       <h1>Estoques</h1>
-      <form className="add-estoque-form" onSubmit={addStock}>
+      <form className="add-estoque-form" onSubmit={handleAddStock}>
         <label>Nome do estoque:</label>
         <input
           type="text"
@@ -76,7 +94,7 @@ const StockManagement = () => {
         <CreateButton label={"Criar Estoque"} />
       </form>
       <ul>
-        {stocks.map((stock) => (
+        {stocksFirebase.map((stock) => (
           <Link
             className="stock-link"
             key={stock.id}
@@ -84,12 +102,11 @@ const StockManagement = () => {
           >
             <li className="stock-item">
               {stock.name}
-              {/* <ActionsButton action={confirmDeleteStock} label={"Excluir"} /> */}
               <button
                 className="removing"
                 onClick={(e) => {
                   e.preventDefault();
-                  confirmDeleteStock(stock.id);
+                  modalDelete(stock.id);
                 }}
               >
                 Excluir
@@ -103,7 +120,7 @@ const StockManagement = () => {
         isOpen={isModalOpen}
         title="Confirmar Exclusão?"
         message="Ao confirmar você perderá todos os dados deste estoque!"
-        onConfirm={deleteStock}
+        onConfirm={handleDeleteStock}
         onCancel={cancelDelete}
       />
     </div>

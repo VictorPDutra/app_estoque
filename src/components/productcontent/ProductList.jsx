@@ -4,26 +4,34 @@ import "./ProductList.css";
 
 import React, { useState, useEffect } from "react";
 import ProductItem from "./ProductItem";
-import { getFromLocalStorage } from "../../utils/storage";
+import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 
-const ProductList = ({ sectionId, updateTrigger }) => {
+const ProductList = ({ stockId, sectionId, updateTrigger }) => {
   const [products, setProducts] = useState([]);
+  const { getDocuments } = useHandleDocuments();
+
+  const fetchProducts = async () => {
+    const currentProducts =
+      (await getDocuments("estoques", stockId, sectionId)) || [];
+    setProducts(currentProducts);
+    console.log(currentProducts);
+  };
 
   useEffect(() => {
-    const storedProducts = getFromLocalStorage(sectionId) || [];
-    setProducts(storedProducts);
+    fetchProducts();
     updateTrigger = 0; // Retornamos updateTrigger para seu estado inicial
   }, [sectionId, updateTrigger]);
 
   return (
     <div className="product-list">
-      <h2>Produtos</h2>
+      <h2>Acessórios</h2>
       <div className="product-items">
         {products.map((product) => (
           <ProductItem
             key={product.id}
-            product={product}
+            stockId={stockId}
             sectionId={sectionId}
+            product={product}
             setProducts={setProducts}
           />
         ))}
