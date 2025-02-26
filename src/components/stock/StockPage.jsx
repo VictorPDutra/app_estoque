@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 import { useStock } from "../../context/StockContext";
+import { ClipLoader } from "react-spinners";
 
 // Components
 import SectionList from "../sectioncontent/SectionList";
@@ -57,7 +58,9 @@ const StockPage = () => {
       <div className="product-section">
         <AddSectionForm onSectionAdded={handleSectionAdded} />
         {loading ? (
-          <p>Carregando seções...</p>
+          <div className="loader-container">
+            <ClipLoader color="#007bff" size={20} />
+          </div>
         ) : (
           <SectionList updateTrigger={sectionUpdateTrigger} />
         )}

@@ -1,9 +1,11 @@
 import styles from "./BackButton.module.css";
 
+import { ArrowLeft } from "lucide-react";
+
 const BackButton = ({ navigate }) => {
   return (
     <button className={styles.back_btn} onClick={() => navigate(-1)}>
-      Voltar
+      <ArrowLeft size={15} />
     </button>
   );
 };

@@ -15,6 +15,7 @@ import { StockProvider } from "./context/StockContext";
 import StockPage from "./components/stock/StockPage";
 import SectionPage from "./components/section/SectionPage";
 import Navbar from "./components/Navbar/Navbar";
+
 // Pages
 import StockManagement from "./pages/stocks/StockManagement";
 import Home from "./pages/home/Home";

@@ -6,24 +6,26 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 import { useAuthentication } from "../../hooks/useAuthentication";
+import { ClipLoader } from "react-spinners";
 
 // Components
 import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
 import CreateButton from "../../components/buttons/createbutton/CreateButton";
 
 const StockManagement = () => {
+  const { auth } = useAuthentication();
+  const { addDocument, getDocuments, deleteDocument } = useHandleDocuments();
   const [newStockName, setNewStockName] = useState("");
   const [stocksFirebase, setStocksFirebase] = useState([]);
   const [stockToDeleteFirebase, setStockToDeleteFirebase] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { auth } = useAuthentication();
-  const { addDocument, getDocuments, deleteDocument, loading, error } =
-    useHandleDocuments();
+  const [loading, setLoading] = useState(true);
 
   // Get stocks from Firebase
   const fetchStocks = async () => {
     const currentStocks = (await getDocuments("estoques")) || [];
     setStocksFirebase(currentStocks);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -91,28 +93,35 @@ const StockManagement = () => {
         />
         <CreateButton label={"Criar Estoque"} />
       </form>
-      <ul>
-        {stocksFirebase.map((stock) => (
-          <Link
-            className="stock-link"
-            key={stock.id}
-            to={`/app_estoque/stock/${stock.id}`}
-          >
-            <li className="stock-item">
-              {stock.name}
-              <button
-                className="removing"
-                onClick={(e) => {
-                  e.preventDefault();
-                  modalDelete(stock.id);
-                }}
-              >
-                Excluir
-              </button>
-            </li>
-          </Link>
-        ))}
-      </ul>
+      {loading ? (
+        <div className="loader-container">
+          <ClipLoader color="#007bff" size={20} />
+        </div>
+      ) : (
+        <ul>
+          {stocksFirebase.map((stock) => (
+            <Link
+              className="stock-link"
+              key={stock.id}
+              to={`/app_estoque/stock/${stock.id}`}
+            >
+              <li className="stock-item">
+                {stock.name}
+                <button
+                  className="removing"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    modalDelete(stock.id);
+                  }}
+                >
+                  Excluir
+                </button>
+              </li>
+            </Link>
+          ))}
+        </ul>
+      )}
+
       {/* modal de exclusão */}
       <ConfirmationModal
         isOpen={isModalOpen}
