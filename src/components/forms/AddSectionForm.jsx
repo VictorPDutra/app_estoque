@@ -3,12 +3,16 @@
 import "./AddSectionForm.css";
 
 import React, { useState } from "react";
-import CreateButton from "../buttons/createbutton/CreateButton";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
+import { useStock } from "../../context/StockContext";
 
-const AddSectionForm = ({ stockId, onSectionAdded }) => {
-  const [sectionName, setSectionName] = useState("");
+// Components
+import CreateButton from "../buttons/createbutton/CreateButton";
+
+const AddSectionForm = ({ onSectionAdded }) => {
   const { addDocument } = useHandleDocuments();
+  const { stockId } = useStock();
+  const [sectionName, setSectionName] = useState("");
 
   const addSection = async (e) => {
     e.preventDefault();

@@ -3,12 +3,16 @@
 import "./SectionList.css";
 
 import React, { useState, useEffect } from "react";
-import SectionItem from "./SectionItem";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
+import { useStock } from "../../context/StockContext";
 
-const SectionList = ({ stockId, updateTrigger }) => {
+// Components
+import SectionItem from "./SectionItem";
+
+const SectionList = ({ updateTrigger }) => {
   const [sections, setSections] = useState([]);
   const { getDocuments } = useHandleDocuments();
+  const { stockId } = useStock();
 
   // Get sections from Firebase
   const fetchSections = async () => {
@@ -36,8 +40,6 @@ const SectionList = ({ stockId, updateTrigger }) => {
             key={section.id}
             // section
             section={section}
-            // Mantem como stockId
-            stockId={stockId}
             // setSections
             setSections={setSections}
           />

@@ -4,10 +4,14 @@ import "./ProductItem.css";
 
 import React, { useState } from "react";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
+import { useStock } from "../../context/StockContext";
+
+// Components
 import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
 import ActionsButton from "../buttons/actionsbutton/ActionsButton";
 
-const ProductItem = ({ stockId, sectionId, product, setProducts }) => {
+const ProductItem = ({ sectionId, product, setProducts }) => {
+  const { stockId } = useStock();
   const { deleteDocument, updateDocument } = useHandleDocuments();
   const [editing, setEditing] = useState(false);
   const [adding, setAdding] = useState(false);
@@ -15,7 +19,6 @@ const ProductItem = ({ stockId, sectionId, product, setProducts }) => {
   const [updatedQuantity, setUpdatedQuantity] = useState(product.quantity);
   const [addAmount, setAddAmount] = useState(0);
   const [removeAmount, setRemoveAmount] = useState(0);
-  // states para modal de exclusão
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
 
@@ -57,7 +60,7 @@ const ProductItem = ({ stockId, sectionId, product, setProducts }) => {
     setProductToDelete(null);
   };
 
-  // add e subtract product
+  // Add and subtract product
   const add = () => {
     setAdding(!adding);
   };
@@ -66,12 +69,11 @@ const ProductItem = ({ stockId, sectionId, product, setProducts }) => {
     setRemoving(!removing);
   };
 
-  // Atualizar quantidade do produto no Firestore
+  // Update quantity on Firestore
   const handleUpdateQuantity = async (change) => {
     try {
       const updatedQuantity = Math.max(0, product.quantity + change);
 
-      // Atualiza o produto no Firestore
       await updateDocument(
         "estoques",
         product.id,
@@ -93,14 +95,14 @@ const ProductItem = ({ stockId, sectionId, product, setProducts }) => {
     }
   };
 
-  // Adicionar quantidade
+  // Add quantity
   const addQuantity = () => {
     handleUpdateQuantity(parseInt(addAmount, 10));
     setAdding(false);
     setAddAmount(0);
   };
 
-  // Subtrair quantidade
+  // Subtract quantity
   const subtractQuantity = () => {
     handleUpdateQuantity(-parseInt(removeAmount, 10));
     setRemoving(false);

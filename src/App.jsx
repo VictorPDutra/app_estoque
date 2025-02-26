@@ -9,6 +9,7 @@ import { useAuthentication } from "./hooks/useAuthentication";
 
 // Context
 import { AuthProvider } from "./context/AuthContext";
+import { StockProvider } from "./context/StockContext";
 
 // Components
 import StockPage from "./components/stock/StockPage";
@@ -41,33 +42,35 @@ const App = () => {
   return (
     <div>
       <AuthProvider value={{ user }}>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Navigate to="/app_estoque" />} />
-          {/* Redireciona */}
-          <Route
-            path="/app_estoque"
-            element={user ? <StockManagement /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/app_estoque/stock/:id"
-            element={user ? <StockPage /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/app_estoque/stock/:stockId/sections/:sectionId"
-            element={user ? <SectionPage /> : <Navigate to="/login" />}
-          />
-          <Route path="/home" element={<Home />} />
-          <Route
-            path="/login"
-            element={!user ? <Login /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/register"
-            element={!user ? <Register /> : <Navigate to="/" />}
-          />
-          <Route path="/logout" element={<Logout />} />
-        </Routes>
+        <StockProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Navigate to="/app_estoque" />} />
+            {/* Redireciona */}
+            <Route
+              path="/app_estoque"
+              element={user ? <StockManagement /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/app_estoque/stock/:id"
+              element={user ? <StockPage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/app_estoque/stock/:stockId/sections/:sectionId"
+              element={user ? <SectionPage /> : <Navigate to="/login" />}
+            />
+            <Route path="/home" element={<Home />} />
+            <Route
+              path="/login"
+              element={!user ? <Login /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/register"
+              element={!user ? <Register /> : <Navigate to="/" />}
+            />
+            <Route path="/logout" element={<Logout />} />
+          </Routes>
+        </StockProvider>
       </AuthProvider>
     </div>
   );

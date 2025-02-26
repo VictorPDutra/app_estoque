@@ -4,21 +4,21 @@ import "./StockManagement.css";
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
-import CreateButton from "../../components/buttons/createbutton/CreateButton";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 import { useAuthentication } from "../../hooks/useAuthentication";
+
+// Components
+import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
+import CreateButton from "../../components/buttons/createbutton/CreateButton";
 
 const StockManagement = () => {
   const [newStockName, setNewStockName] = useState("");
   const [stocksFirebase, setStocksFirebase] = useState([]);
   const [stockToDeleteFirebase, setStockToDeleteFirebase] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Dados necessários para criação de estoque no Firebase
+  const { auth } = useAuthentication();
   const { addDocument, getDocuments, deleteDocument, loading, error } =
     useHandleDocuments();
-  const { auth } = useAuthentication();
 
   // Get stocks from Firebase
   const fetchStocks = async () => {
@@ -30,7 +30,7 @@ const StockManagement = () => {
     fetchStocks();
   }, []);
 
-  // Criação de estoque
+  // Add stock
   const handleAddStock = async (e) => {
     e.preventDefault();
 
@@ -53,20 +53,18 @@ const StockManagement = () => {
     }
   };
 
-  // Modal de exclusão
+  // Delete stock
   const modalDelete = (id) => {
     console.log(id);
     setStockToDeleteFirebase(id);
     setIsModalOpen(true);
   };
 
-  // Modal de exclusão
   const cancelDelete = () => {
     setIsModalOpen(false);
     setStockToDeleteFirebase(null);
   };
 
-  // Deletar estoque no Firebase
   const handleDeleteStock = async () => {
     if (!stockToDeleteFirebase) return;
 

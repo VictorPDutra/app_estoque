@@ -5,11 +5,15 @@ import "./SectionItem.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
+import { useStock } from "../../context/StockContext";
+
+// Components
 import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
 import ActionsButton from "../buttons/actionsbutton/ActionsButton";
 
-const SectionItem = ({ section, stockId, setSections }) => {
+const SectionItem = ({ section, setSections }) => {
   const { deleteDocument, updateDocument } = useHandleDocuments();
+  const { stockId } = useStock();
   const [sectionToDelete, setSectionToDelete] = useState(null);
   const [updatedSection, setUpdatedSection] = useState(section.name);
   const [editing, setEditing] = useState(false);

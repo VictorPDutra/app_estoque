@@ -4,12 +4,16 @@ import "./AddProductForm.css";
 
 import React, { useState } from "react";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
+import { useStock } from "../../context/StockContext";
+
+// Components
 import CreateButton from "../buttons/createbutton/CreateButton";
 
-const AddProductForm = ({ stockId, sectionId, onProductAdded }) => {
+const AddProductForm = ({ sectionId, onProductAdded }) => {
+  const { addDocument } = useHandleDocuments();
+  const { stockId } = useStock();
   const [productName, setProductName] = useState("");
   const [productQuantity, setProductQuantity] = useState(0);
-  const { addDocument } = useHandleDocuments();
 
   const addProduct = async (e) => {
     e.preventDefault();

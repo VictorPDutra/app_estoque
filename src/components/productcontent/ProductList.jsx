@@ -5,10 +5,12 @@ import "./ProductList.css";
 import React, { useState, useEffect } from "react";
 import ProductItem from "./ProductItem";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
+import { useStock } from "../../context/StockContext";
 
-const ProductList = ({ stockId, sectionId, updateTrigger }) => {
+const ProductList = ({ sectionId, updateTrigger }) => {
   const [products, setProducts] = useState([]);
   const { getDocuments } = useHandleDocuments();
+  const { stockId } = useStock();
 
   const fetchProducts = async () => {
     const currentProducts =
@@ -29,7 +31,6 @@ const ProductList = ({ stockId, sectionId, updateTrigger }) => {
         {products.map((product) => (
           <ProductItem
             key={product.id}
-            stockId={stockId}
             sectionId={sectionId}
             product={product}
             setProducts={setProducts}
