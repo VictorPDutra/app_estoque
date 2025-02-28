@@ -17,16 +17,23 @@
   align-items: center;
 }
 
-.product-item h4 {
+.product-item .product-data {
+  display: flex;
   min-width: 150px;
-  font-size: 18px;
+}
+
+.product-item h4 {
   color: #007bff;
   margin: 0; /* Remove espaçamento extra */
 }
 
+.product-span {
+  margin: 0 0 10px 0;
+}
+
 .quantity-span {
   color: #dc3545;
-  font-size: 22px;
+  margin: 0;
 }
 
 /* Botões da barra de ações */

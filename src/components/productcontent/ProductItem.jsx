@@ -114,10 +114,18 @@ const ProductItem = ({ sectionId, product, setProducts }) => {
     <div className="product-item">
       {/* Cabeçalho com título e ações na mesma linha */}
       <div className="header">
-        <h4>
-          <span className="product-span">{product.name}</span> -{" "}
-          <span className="quantity-span">{product.quantity}</span>
-        </h4>
+        <div>
+          <div className="product-data">
+            <h4>Nome - </h4>
+            <p className="product-span">{product.name}</p>
+          </div>
+
+          <div className="product-data">
+            <h4> Quantidade - </h4>
+            <p className="quantity-span">{product.quantity}</p>
+          </div>
+        </div>
+
         <div className="actions">
           <ActionsButton action={add} label={"Entrada"} />
           <ActionsButton action={sub} label={"Saída"} />
