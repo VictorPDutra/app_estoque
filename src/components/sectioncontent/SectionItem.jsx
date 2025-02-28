@@ -10,6 +10,7 @@ import { useStock } from "../../context/StockContext";
 // Components
 import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
 import ActionsButton from "../buttons/actionsbutton/ActionsButton";
+import CreateButton from "../buttons/createbutton/CreateButton";
 
 const SectionItem = ({ section, setSections }) => {
   const { deleteDocument, updateDocument } = useHandleDocuments();
@@ -86,14 +87,14 @@ const SectionItem = ({ section, setSections }) => {
 
       {/* Formulário para editar nome da seção */}
       {editing && (
-        <div className="form">
+        <form className="form" onSubmit={updateSection}>
           <input
             type="text"
             value={updatedSection}
             onChange={(e) => setUpdatedSection(e.target.value)}
           />
-          <button onClick={updateSection}>Salvar</button>
-        </div>
+          <CreateButton label={"Salvar"} />
+        </form>
       )}
       {/* Modal de exclusão */}
       <ConfirmationModal

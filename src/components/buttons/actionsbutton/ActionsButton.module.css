@@ -1,9 +1,11 @@
-/* Delete */
+/* Actions */
 .actions_button {
+  display: flex;
+  align-items: center;
   background-color: #e7e7e7;
   color: rgb(77, 77, 77);
   border: none;
-  padding: 8px 12px;
+  padding: 6px 8px;
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
@@ -22,10 +24,12 @@
 
 /* Delete */
 .remove_button {
+  display: flex;
+  align-items: center;
   background-color: #dc3545;
   color: #fff;
   border: none;
-  padding: 8px 12px;
+  padding: 6px 8px;
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;

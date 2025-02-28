@@ -61,7 +61,7 @@
 }
 
 .product-item .form button {
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   padding: 6px 12px;
   font-size: 14px;
@@ -69,7 +69,7 @@
 }
 
 .product-item .form button:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
 @media (max-width: 620px) {

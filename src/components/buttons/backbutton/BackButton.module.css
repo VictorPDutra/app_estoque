@@ -1,9 +1,11 @@
 .back_btn {
+  display: flex;
+  align-items: center;
   background-color: white;
   color: #0056b3;
   border: 1px solid #0056b3;
   font-family: inherit;
-  padding: 2px 12px;
+  padding: 4px 12px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;

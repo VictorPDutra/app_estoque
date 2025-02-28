@@ -9,6 +9,7 @@ import { useStock } from "../../context/StockContext";
 // Components
 import ConfirmationModal from "../../globalcomponents/ConfirmationModal";
 import ActionsButton from "../buttons/actionsbutton/ActionsButton";
+import CreateButton from "../buttons/createbutton/CreateButton";
 
 const ProductItem = ({ sectionId, product, setProducts }) => {
   const { stockId } = useStock();
@@ -137,27 +138,27 @@ const ProductItem = ({ sectionId, product, setProducts }) => {
       )}
 
       {adding && (
-        <div className="form">
+        <form className="form" onSubmit={addQuantity}>
           <input
             type="number"
             placeholder="Quantidade a acrescentar"
             value={addAmount}
             onChange={(e) => setAddAmount(e.target.value)}
           />
-          <button onClick={addQuantity}>Adicionar</button>
-        </div>
+          <CreateButton label={"Adicionar"} />
+        </form>
       )}
 
       {removing && (
-        <div className="form">
+        <form className="form" onSubmit={subtractQuantity}>
           <input
             type="number"
             placeholder="Quantidade a retirar"
             value={removeAmount}
             onChange={(e) => setRemoveAmount(e.target.value)}
           />
-          <button onClick={subtractQuantity}>Retirar</button>
-        </div>
+          <CreateButton label={"Retirar"} />
+        </form>
       )}
       {/* modal de exclusão */}
       <ConfirmationModal

@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { loginUser, erro: authError, loading } = useAuthentication();
+  const { loginUser, error: authError, loading } = useAuthentication();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,13 +28,16 @@ const Login = () => {
   useEffect(() => {
     if (authError) {
       setError(authError);
+      console.log(error);
     }
   }, [authError]);
 
   return (
     <div className={styles.login}>
-      <h1>Entrar</h1>
-      <p>Faça o login para acessar seus estoques</p>
+      <div className={styles.header}>
+        <h1>Entrar</h1>
+        <p>Faça o login para acessar seus estoques</p>
+      </div>
       <form onSubmit={handleSubmit}>
         <label>
           <span>E-mail:</span>
@@ -58,9 +61,9 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
+        {error && <p className="error">{error}</p>}
         {!loading && <CreateButton label={"Entrar"} />}
         {loading && <CreateButton label={"Entrando..."} disabled={true} />}
-        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );
