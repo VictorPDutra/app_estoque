@@ -24,7 +24,7 @@
 
 .product-item h4 {
   color: #007bff;
-  margin: 0; /* Remove espaçamento extra */
+  margin: 0 10px 0 0; /* Remove espaçamento extra */
 }
 
 .product-span {

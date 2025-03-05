@@ -116,12 +116,17 @@ const ProductItem = ({ sectionId, product, setProducts }) => {
       <div className="header">
         <div>
           <div className="product-data">
-            <h4>Nome - </h4>
+            <h4>Nome:</h4>
             <p className="product-span">{product.name}</p>
           </div>
 
           <div className="product-data">
-            <h4> Quantidade - </h4>
+            <h4> Código:</h4>
+            <p className="product-span">{product.code}</p>
+          </div>
+
+          <div className="product-data">
+            <h4> Quantidade:</h4>
             <p className="quantity-span">{product.quantity}</p>
           </div>
         </div>
