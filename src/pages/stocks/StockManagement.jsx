@@ -22,15 +22,20 @@ const StockManagement = () => {
   const [loading, setLoading] = useState(true);
 
   // Get stocks from Firebase
-  const fetchStocks = async () => {
-    const currentStocks = (await getDocuments("estoques")) || [];
-    setStocksFirebase(currentStocks);
-    setLoading(false);
-  };
 
   useEffect(() => {
+    const fetchStocks = async () => {
+      if (!auth.currentUser) return; //Adicionado
+      const userStocks = (await getDocuments("estoques")) || [];
+      const filteredStocks = userStocks.filter(
+        (stock) => stock.userId === auth.currentUser.uid
+      );
+      setStocksFirebase(filteredStocks);
+      setLoading(false);
+    };
+
     fetchStocks();
-  }, []);
+  }, [auth.currentUser]);
 
   // Add stock
   const handleAddStock = async (e) => {

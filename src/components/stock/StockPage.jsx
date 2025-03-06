@@ -4,6 +4,7 @@ import "./StockPage.css";
 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAuthentication } from "../../hooks/useAuthentication";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 import { useStock } from "../../context/StockContext";
 import { ClipLoader } from "react-spinners";
@@ -15,6 +16,7 @@ import BackButton from "../buttons/backbutton/BackButton";
 
 const StockPage = () => {
   const { id } = useParams(); // Permite acessar os dados do "id" que vem através da rota "/stocks:id" - Com isso podemos carregar o componente "StockPage" com os dados do "id"
+  const { auth } = useAuthentication();
   const { stockId, setStockId, stockName, setStockName } = useStock();
   const { getDocuments } = useHandleDocuments();
   const navigate = useNavigate(); // Permite programar ações de navegação dentro do componente
@@ -32,7 +34,8 @@ const StockPage = () => {
         const stocks = await getDocuments("estoques");
         const currentStock = stocks?.find((stock) => stock.id === id);
 
-        if (currentStock) {
+        if (currentStock && currentStock.userId === auth.currentUser.uid) {
+          // Para usuário não acessar por rota sem estar logado
           setStockName(currentStock.name); // Se o stock foi encontrado, adiciona "name" ao state "stockName" - usado para adicionar como título da página
         } else {
           navigate("/app_estoque"); // Redireciona se o estoque não for encontrado
@@ -45,7 +48,7 @@ const StockPage = () => {
     };
 
     fetchStock();
-  }, [id]);
+  }, [id, auth.currentUser]);
 
   // Função para criar gatilho de atualização automática da SectionList
   const handleSectionAdded = () => {
