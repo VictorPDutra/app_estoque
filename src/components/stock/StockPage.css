@@ -9,12 +9,27 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.stock-page h1 {
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 0 0;
+}
+
+.stock-page .breadcrumbs h1 {
+  display: flex;
+  align-items: center;
   font-size: 24px;
-  margin-bottom: 16px;
-  color: #007bff;
+  margin: 0;
+  color: #000;
 }
 
 .stock-page .product-section {
   margin-top: 20px;
+}
+
+@media (max-width: 660px) {
+  .stock-page .breadcrumbs h1 {
+    font-size: 22px;
+  }
 }

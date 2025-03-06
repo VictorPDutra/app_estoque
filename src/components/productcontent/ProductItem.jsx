@@ -63,11 +63,11 @@ const ProductItem = ({ sectionId, product, setProducts }) => {
 
   // Add and subtract product
   const add = () => {
-    setAdding(!adding);
+    setAdding((prev) => !prev);
   };
 
   const sub = () => {
-    setRemoving(!removing);
+    setRemoving((prev) => !prev);
   };
 
   // Update quantity on Firestore

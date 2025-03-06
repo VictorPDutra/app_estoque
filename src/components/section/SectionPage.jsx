@@ -7,6 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useHandleDocuments } from "../../hooks/useHandleDocuments";
 import { useStock } from "../../context/StockContext";
 import { ClipLoader } from "react-spinners";
+import { ChevronRight } from "lucide-react";
 
 // Components
 import AddProductForm from "../forms/AddProductForm";
@@ -16,7 +17,7 @@ import BackButton from "../buttons/backbutton/BackButton";
 const SectionPage = () => {
   const navigate = useNavigate(); // Permite programar ações de navegação dentro do componente
   const { sectionId } = useParams(); // Permite acessar os dados do "id" que vem através da rota "/section:id" - Com isso podemos carregar o componente "SectionPage" com os dados do "id"
-  const { stockId } = useStock();
+  const { stockName, stockId } = useStock();
   const { getDocuments } = useHandleDocuments();
   const [sectionName, setSectionName] = useState("");
   const [productUpdateTrigger, setProductUpdateTrigger] = useState(0); // Estado usado para criar gatilho de atualização automática da ProductList
@@ -24,9 +25,11 @@ const SectionPage = () => {
 
   useEffect(() => {
     const fetchSection = async () => {
+      if (!stockId || !sectionId) return;
+
       try {
         const sections = await getDocuments("estoques", stockId);
-        const currentSection = sections.find(
+        const currentSection = sections?.find(
           (section) => section.id === sectionId
         );
 
@@ -43,7 +46,7 @@ const SectionPage = () => {
     };
 
     fetchSection();
-  }, [stockId, sectionId, navigate, getDocuments]);
+  }, [stockId, sectionId]);
 
   // Função para criar gatilho de atualização automática da ProductList
   const handleProductAdded = () => {
@@ -52,8 +55,19 @@ const SectionPage = () => {
 
   return (
     <div className="stock-page">
-      <h1>{sectionName ? `Linha: ${sectionName}` : "Carregando..."}</h1>
-      <BackButton navigate={navigate} />
+      <div className="breadcrumbs">
+        <BackButton navigate={navigate} />
+        <h1>
+          {sectionName ? (
+            <>
+              {stockName} <ChevronRight size={20} /> {sectionName}
+            </>
+          ) : (
+            "Carregando..."
+          )}
+        </h1>
+      </div>
+
       <div className="product-section">
         <AddProductForm
           sectionId={sectionId}

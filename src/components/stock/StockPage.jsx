@@ -15,21 +15,22 @@ import BackButton from "../buttons/backbutton/BackButton";
 
 const StockPage = () => {
   const { id } = useParams(); // Permite acessar os dados do "id" que vem através da rota "/stocks:id" - Com isso podemos carregar o componente "StockPage" com os dados do "id"
-  const { setStockId } = useStock();
+  const { stockId, setStockId, stockName, setStockName } = useStock();
   const { getDocuments } = useHandleDocuments();
   const navigate = useNavigate(); // Permite programar ações de navegação dentro do componente
-  const [stockName, setStockName] = useState("");
   const [sectionUpdateTrigger, setSectionUpdateTrigger] = useState(0); // Estado usado para criar gatilho de atualiuzação automática da SectionList
   const [loading, setLoading] = useState(true);
 
   // Get stock from Firebase
   useEffect(() => {
+    if (!id) return;
+
     setStockId(id);
 
     const fetchStock = async () => {
       try {
         const stocks = await getDocuments("estoques");
-        const currentStock = stocks.find((stock) => stock.id === id);
+        const currentStock = stocks?.find((stock) => stock.id === id);
 
         if (currentStock) {
           setStockName(currentStock.name); // Se o stock foi encontrado, adiciona "name" ao state "stockName" - usado para adicionar como título da página
@@ -44,7 +45,7 @@ const StockPage = () => {
     };
 
     fetchStock();
-  }, [id, navigate, getDocuments]);
+  }, [id]);
 
   // Função para criar gatilho de atualização automática da SectionList
   const handleSectionAdded = () => {
@@ -53,8 +54,10 @@ const StockPage = () => {
 
   return (
     <div className="stock-page">
-      <h1>{stockName ? `Estoque: ${stockName}` : "Carregando..."}</h1>
-      <BackButton navigate={navigate} />
+      <div className="breadcrumbs">
+        <BackButton navigate={navigate} />
+        <h1>{stockName ? stockName : "Carregando..."}</h1>
+      </div>
       <div className="product-section">
         <AddSectionForm onSectionAdded={handleSectionAdded} />
         {loading ? (

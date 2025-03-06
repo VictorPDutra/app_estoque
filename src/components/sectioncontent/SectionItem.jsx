@@ -22,7 +22,7 @@ const SectionItem = ({ section, setSections }) => {
 
   // Update Section
   const edit = () => {
-    setEditing(!editing);
+    setEditing((prev) => !prev);
   };
 
   const updateSection = async () => {

@@ -29,10 +29,11 @@
 
 .product-span {
   margin: 0 0 10px 0;
+  color: #000;
 }
 
 .quantity-span {
-  color: #dc3545;
+  color: #000;
   margin: 0;
 }
 

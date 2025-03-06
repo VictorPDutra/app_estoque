@@ -4,9 +4,12 @@ const StockContext = createContext();
 
 export const StockProvider = ({ children }) => {
   const [stockId, setStockId] = useState(null);
+  const [stockName, setStockName] = useState("");
 
   return (
-    <StockContext.Provider value={{ stockId, setStockId }}>
+    <StockContext.Provider
+      value={{ stockId, setStockId, stockName, setStockName }}
+    >
       {children}
     </StockContext.Provider>
   );
