@@ -1,18 +1,28 @@
-.background_home {
-  background-color: #f2f2f2;
-  width: 100%;
-  height: calc(100svh - 64px);
-  display: flex;
-  align-items: center;
+.container {
+  overflow: hidden;
 }
 
 .home {
+  display: flex;
+  align-items: center;
+  animation: alternate;
+  margin: 20px 0;
   background-color: #007bff;
   width: 95%;
-  height: 400px;
+  height: 120px;
   border-radius: 0 80px 80px 0;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  left: -100px;
+  animation: moveRight 3s ease-in-out forwards; /* Aplica a animação */
+}
+
+@keyframes moveRight {
+  0% {
+    left: -100%; /* Começa escondida à esquerda */
+  }
+  100% {
+    left: calc(100% - 100%); /* Move para a direita e para */
+  }
 }
 
 .home_description {
@@ -25,4 +35,8 @@
   font-weight: bold;
   font-size: 30px;
   color: #f2f2f2;
+}
+
+.image_home {
+  width: 100%;
 }
