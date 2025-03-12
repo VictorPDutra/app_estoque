@@ -90,30 +90,32 @@ const Home = () => {
           </div>
         </div>
         <div className={styles.carousel_container}>
-          {showLeftButton && (
-            <button
-              className={`${styles.carousel_button} ${styles.prev}`}
-              onClick={() => scroll(-1)}
-            >
-              <ChevronLeft size={24} />
-            </button>
-          )}
-          <div className={styles.carousel} ref={carouselRef}>
-            {cards.map((card, index) => (
-              <div key={index} className={styles.card}>
-                <h3 className={styles.card_title}>{card.title}</h3>
-                <p className={styles.card_description}>{card.description}</p>
-              </div>
-            ))}
+          <div className={styles.carousel_box}>
+            {showLeftButton && (
+              <button
+                className={`${styles.carousel_button} ${styles.prev}`}
+                onClick={() => scroll(-1)}
+              >
+                <ChevronLeft size={24} />
+              </button>
+            )}
+            <div className={styles.carousel} ref={carouselRef}>
+              {cards.map((card, index) => (
+                <div key={index} className={styles.card}>
+                  <h3 className={styles.card_title}>{card.title}</h3>
+                  <p className={styles.card_description}>{card.description}</p>
+                </div>
+              ))}
+            </div>
+            {showRightButton && (
+              <button
+                className={`${styles.carousel_button} ${styles.next}`}
+                onClick={() => scroll(1)}
+              >
+                <ChevronRight size={24} />
+              </button>
+            )}
           </div>
-          {showRightButton && (
-            <button
-              className={`${styles.carousel_button} ${styles.next}`}
-              onClick={() => scroll(1)}
-            >
-              <ChevronRight size={24} />
-            </button>
-          )}
         </div>
       </div>
       <div className={styles.image_container}>

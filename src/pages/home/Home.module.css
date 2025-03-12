@@ -127,11 +127,15 @@
 
 .carousel_container {
   width: 100%;
-  max-width: 360px;
-  padding: 0 20px;
+  max-width: 400px;
   margin: 40px auto;
   border-radius: 20px;
   position: relative;
+}
+
+.carousel_box {
+  max-width: 340px;
+  margin: 0 auto;
 }
 
 .carousel {
@@ -164,7 +168,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   z-index: 2;
 }
 
@@ -217,6 +221,14 @@
 
   .left_content {
     order: 1;
+  }
+
+  .home_description {
+    font-size: 22px;
+  }
+
+  .logo {
+    font-size: 28px;
   }
 
   .image_container {
