@@ -2,21 +2,36 @@
 
 .section-item {
   background-color: #ffffff;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #007bff, #00d4ff);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .section-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Alinhamento horizontal entre o título e os botões */
+.section-item:hover::before {
+  opacity: 1;
+}
+
 .section-item .header {
   display: flex;
   justify-content: space-between;
@@ -24,45 +39,51 @@
 }
 
 .section-item .item-link {
-  width: 100%;
+  text-decoration: none;
+  flex-grow: 1;
 }
 
 .section-item h4 {
-  min-width: 150px;
-  font-size: 18px;
-  color: #007bff;
-  margin: 0; /* Remove espaçamento extra */
+  color: #2d3748;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
-/* Botões da barra de ações */
+.section-item h4:hover {
+  color: #007bff;
+}
+
 .section-item .actions {
   display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center; /* Alinha verticalmente os itens no centro */
-  margin-left: auto; /* Empurra os botões para a direita */
+  gap: 0.75rem;
+  margin-left: 1rem;
 }
 
-/* Estilo para os formulários */
 .section-item .form {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
   display: flex;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 0.75rem;
 }
 
 .section-item .form input {
-  padding: 8px;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  font-size: 14px;
   flex-grow: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.95rem;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: white;
 }
 
 .section-item .form input:focus {
-  border-color: #007bff;
-  box-shadow: 0px 0px 4px rgba(0, 123, 255, 0.5);
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
 }
 
 .section-item .form button {
@@ -75,4 +96,30 @@
 
 .section-item .form button:hover {
   background-color: #0056b3;
+}
+
+@media (max-width: 620px) {
+  .section-item {
+    padding: 1rem;
+  }
+
+  .section-item .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .section-item .actions {
+    margin-left: 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .section-item .form {
+    flex-direction: column;
+  }
+
+  .section-item .form input {
+    width: 100%;
+  }
 }

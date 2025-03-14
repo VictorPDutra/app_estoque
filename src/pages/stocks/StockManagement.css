@@ -1,116 +1,179 @@
 /*StockManagement*/
 
 .stock-management {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
   background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .stock-management h1 {
-  font-size: 28px;
-  margin-bottom: 16px;
-  color: #000;
+  font-size: 2rem;
+  color: #1a1a1a;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.stock-management h1::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: #007bff;
+  border-radius: 2px;
 }
 
 .stock-management label {
-  font-weight: bold;
-  font-size: 15px;
+  font-weight: 500;
+  font-size: 1rem;
   display: block;
+  margin-bottom: 0.5rem;
+  color: #4a5568;
 }
 
 .stock-management .add-estoque-form {
   max-width: 616px;
-  margin: 0 auto;
+  margin: 0 auto 3rem;
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stock-management .add-estoque-form label {
+  font-weight: bold;
 }
 
 .stock-management input {
-  width: calc(100% - 100px);
-  max-width: 300px;
-  margin: 8px 12px 12px 0;
-  padding: 10px;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  font-size: 14px;
+  width: calc(100% - 120px);
+  margin: 0 12px 0 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.95rem;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .stock-management input:focus {
-  border-color: #007bff;
-  box-shadow: 0px 0px 4px rgba(0, 123, 255, 0.5);
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
 }
 
 .stock-management ul {
   list-style: none;
   padding: 0;
-  margin-top: 40px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 .stock-item {
+  font-weight: bold;
   background-color: #ffffff;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  width: 300px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stock-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #00d4ff);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .stock-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.stock-item:hover::before {
+  opacity: 1;
 }
 
 .stock-management .stock-link {
   text-decoration: none;
+  color: #2d3748;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
+}
+
+.stock-management .stock-link:hover {
+  color: #007bff;
 }
 
 .stock-item button {
-  width: 70px;
-  margin-top: 16px;
+  width: auto;
+  min-width: 80px;
+  margin-top: 1rem;
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 8px;
-  font-size: 14px;
-  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .stock-item button:hover {
   background-color: #c82333;
+  transform: scale(1.05);
 }
 
-@media (max-width: 660px) {
-  .stock-management h1 {
-    font-size: 24px;
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+@media (max-width: 768px) {
+  .stock-management {
+    padding: 1rem;
+    margin: 1rem;
   }
 
-  .stock-management ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .stock-management h1 {
+    font-size: 1.75rem;
   }
 
   .stock-management .add-estoque-form {
-    max-width: 300px;
-    margin: 0 auto;
+    padding: 1rem;
   }
 
   .stock-management input {
     width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .stock-management ul {
+    grid-template-columns: 1fr;
   }
 }
