@@ -46,28 +46,27 @@ const App = () => {
         <StockProvider>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Navigate to="/app_estoque" />} />
-            {/* Redireciona */}
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<Home />} />
             <Route
               path="/app_estoque"
               element={user ? <StockManagement /> : <Navigate to="/home" />}
             />
             <Route
               path="/app_estoque/stock/:id"
-              element={user ? <StockPage /> : <Navigate to="/login" />}
+              element={user ? <StockPage /> : <Navigate to="/home" />}
             />
             <Route
               path="/app_estoque/stock/:stockId/sections/:sectionId"
-              element={user ? <SectionPage /> : <Navigate to="/login" />}
+              element={user ? <SectionPage /> : <Navigate to="/home" />}
             />
-            <Route path="/home" element={<Home />} />
             <Route
               path="/login"
-              element={!user ? <Login /> : <Navigate to="/" />}
+              element={!user ? <Login /> : <Navigate to="/app_estoque" />}
             />
             <Route
               path="/register"
-              element={!user ? <Register /> : <Navigate to="/" />}
+              element={!user ? <Register /> : <Navigate to="/app_estoque" />}
             />
             <Route path="/logout" element={<Logout />} />
           </Routes>
