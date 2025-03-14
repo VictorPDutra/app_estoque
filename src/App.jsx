@@ -50,7 +50,7 @@ const App = () => {
             {/* Redireciona */}
             <Route
               path="/app_estoque"
-              element={user ? <StockManagement /> : <Navigate to="/login" />}
+              element={user ? <StockManagement /> : <Navigate to="/home" />}
             />
             <Route
               path="/app_estoque/stock/:id"
